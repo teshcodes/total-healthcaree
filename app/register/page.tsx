@@ -4,72 +4,88 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Eye, EyeOff, KeyRound } from "lucide-react";
 
-export default function LoginPage() {
+export default function RegisterPage() {
   const router = useRouter();
+  const [practiceName, setPracticeName] = useState("");
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
-    router.push("/confirm");
-  };
+    const handleRegister = (e: React.FormEvent) => {
+        e.preventDefault();
+        router.push("/confirm");
+    };
 
   return (
     <div
       className="min-h-screen w-full flex items-center justify-center px-4"
       style={{ backgroundColor: "#EAECF1" }}
     >
-     
       <div className="w-full max-w-5xl flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-8">
 
         {/* ── LEFT — Welcome text ── */}
-        <div className="flex flex-col items-center lg:items-start text-center lg:text-left gap-6">
+        <div className="flex flex-col items-center lg:items-start text-center lg:text-left gap-4">
           <div>
             <h1
-              className="text-5xl lg:text-6xl font-extrabold tracking-tight"
+              className="text-4xl lg:text-5xl font-extrabold tracking-tight"
               style={{ color: "#1A1A2E" }}
             >
-              Welcome
+              Create an account
             </h1>
             <p
-              className="text-2xl lg:text-3xl font-semibold mt-2"
+              className="text-xl lg:text-2xl font-semibold mt-3 max-w-xs lg:max-w-sm leading-snug"
               style={{ color: "#A2B8F2" }}
             >
-              Login to your account
+              Provide some basic information to get started.
             </p>
           </div>
-
-          {/* New here CTA button */}
-          <button
-            onClick={() => router.push("/register")}
-            className="mt-2 px-8 py-3 rounded-lg text-sm font-semibold text-white transition-all duration-200 hover:opacity-90 active:scale-95"
-            style={{ backgroundColor: "#3B5BDB" }}
-          >
-            New here? Setup your practice
-          </button>
         </div>
 
-        {/* ── RIGHT — Login card ── */}
-        <div
-          className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8 flex flex-col gap-5"
-        >
+        {/* ── RIGHT — Sign up card ── */}
+        <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8 flex flex-col gap-5">
+
           {/* Card header */}
           <div className="flex items-center gap-3 pb-4 border-b border-gray-100">
-            {/* Key icon badge */}
             <div
               className="w-10 h-10 rounded-full flex items-center justify-center shrink-0"
               style={{ backgroundColor: "#EEF2FF" }}
             >
               <KeyRound size={18} style={{ color: "#3B5BDB" }} />
             </div>
-            <h2 className="text-xl font-semibold text-gray-800">Login</h2>
+            <div>
+              <h2 className="text-xl font-semibold text-gray-800 leading-tight">
+                Sign up
+              </h2>
+              <p className="text-xs text-gray-400 mt-0.5">
+                Setup your practice
+              </p>
+            </div>
           </div>
 
           {/* Form */}
-          <form onSubmit={handleLogin} className="flex flex-col gap-5">
+          <form onSubmit={handleRegister} className="flex flex-col gap-4">
 
-            {/* Email field */}
+            {/* Practice name */}
+            <div className="flex flex-col gap-1">
+              <label
+                htmlFor="practiceName"
+                className="text-xs font-medium text-gray-500"
+              >
+                Practice name
+              </label>
+              <input
+                id="practiceName"
+                type="text"
+                value={practiceName}
+                onChange={(e) => setPracticeName(e.target.value)}
+                placeholder="St Luke's Hospital"
+                required
+                className="w-full border border-gray-300 rounded-lg px-4 py-3 text-sm text-gray-800 placeholder-gray-400 outline-none transition-all duration-200 focus:border-[#3B5BDB] focus:ring-2 focus:ring-[#3B5BDB]/20"
+              />
+            </div>
+
+            {/* Email */}
             <div className="flex flex-col gap-1">
               <label
                 htmlFor="email"
@@ -88,7 +104,26 @@ export default function LoginPage() {
               />
             </div>
 
-            {/* Password field */}
+            {/* Phone number */}
+            <div className="flex flex-col gap-1">
+              <label
+                htmlFor="phone"
+                className="text-xs font-medium text-gray-500"
+              >
+                Phone number
+              </label>
+              <input
+                id="phone"
+                type="tel"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                placeholder="+1 234 567 8900"
+                required
+                className="w-full border border-gray-300 rounded-lg px-4 py-3 text-sm text-gray-800 placeholder-gray-400 outline-none transition-all duration-200 focus:border-[#3B5BDB] focus:ring-2 focus:ring-[#3B5BDB]/20"
+              />
+            </div>
+
+            {/* Password */}
             <div className="flex flex-col gap-1">
               <label
                 htmlFor="password"
@@ -105,7 +140,6 @@ export default function LoginPage() {
                   required
                   className="w-full border border-gray-300 rounded-lg px-4 py-3 pr-11 text-sm text-gray-800 outline-none transition-all duration-200 focus:border-[#3B5BDB] focus:ring-2 focus:ring-[#3B5BDB]/20"
                 />
-                {/* Show/hide password toggle */}
                 <button
                   type="button"
                   onClick={() => setShowPassword((p) => !p)}
@@ -126,15 +160,16 @@ export default function LoginPage() {
             </button>
           </form>
 
-          {/* Forgot password */}
+          {/* Already have account */}
           <div className="text-center">
+            <span className="text-xs text-gray-400">Already have an account? </span>
             <button
               type="button"
-              onClick={() => router.push("/forgot-password")}
-              className="text-sm font-medium transition-colors hover:underline"
+              onClick={() => router.push("/")}
+              className="text-xs font-medium transition-colors hover:underline"
               style={{ color: "#3B5BDB" }}
             >
-              forgot password?
+              Log in
             </button>
           </div>
         </div>
