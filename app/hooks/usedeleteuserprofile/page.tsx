@@ -1,4 +1,5 @@
 // ./app/hooks/usedeleteuserprofile/page.tsx
+"use client";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteUserProfile } from "../../service/total-healthcare/page";

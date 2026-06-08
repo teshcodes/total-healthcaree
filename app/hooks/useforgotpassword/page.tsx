@@ -1,3 +1,5 @@
+"use client";
+
 import { useMutation } from "@tanstack/react-query";
 import { forgotPassword } from "../../service/total-healthcare/page";
 import { toast } from "sonner";

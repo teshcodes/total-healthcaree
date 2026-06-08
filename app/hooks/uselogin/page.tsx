@@ -1,4 +1,5 @@
 // ./hooks/uselogin/page.tsx
+"use client";
 
 import { useMutation } from "@tanstack/react-query";
 import { loginUser } from "../../service/total-healthcare/page";
