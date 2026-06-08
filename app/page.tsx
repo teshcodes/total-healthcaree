@@ -3,6 +3,10 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Eye, EyeOff, KeyRound } from "lucide-react";
+import { useMutation } from "@tanstack/react-query";
+import { loginUser } from "./service/total-healthcare/page";
+import { toast } from "sonner";
+import { AxiosError } from "axios";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -10,9 +14,32 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
+  
+  const loginMutation = useMutation({
+    mutationFn: async (credentials: { emailAdress: string; password: string }) => {
+      try {
+        const data = await loginUser(credentials);
+        return data;
+      } catch (error) {
+        if (error instanceof AxiosError) {
+          throw new Error(error.response?.data?.message || "Login failed");
+        }
+        throw new Error("An unexpected error occurred");
+      }
+    },
+    onSuccess: (data) => {
+      toast.success("Login successful!");
+      localStorage.setItem("token", data.token);
+      router.push("/confirm");
+    },
+    onError: (error: Error) => {
+      toast.error(error.message);
+    },
+  });
+
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    router.push("/confirm");
+    loginMutation.mutate({ emailAdress: email, password });
   };
 
   return (
@@ -20,27 +47,18 @@ export default function LoginPage() {
       className="min-h-screen w-full flex items-center justify-center px-4"
       style={{ backgroundColor: "#EAECF1" }}
     >
-     
       <div className="w-full max-w-5xl flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-8">
 
-        {/* ── LEFT — Welcome text ── */}
+        {/* LEFT */}
         <div className="flex flex-col items-center lg:items-start text-center lg:text-left gap-6">
           <div>
-            <h1
-              className="text-5xl lg:text-6xl font-extrabold tracking-tight"
-              style={{ color: "#1A1A2E" }}
-            >
+            <h1 className="text-5xl lg:text-6xl font-extrabold tracking-tight" style={{ color: "#1A1A2E" }}>
               Welcome
             </h1>
-            <p
-              className="text-2xl lg:text-3xl font-semibold mt-2"
-              style={{ color: "#A2B8F2" }}
-            >
+            <p className="text-2xl lg:text-3xl font-semibold mt-2" style={{ color: "#A2B8F2" }}>
               Login to your account
             </p>
           </div>
-
-          {/* New here CTA button */}
           <button
             onClick={() => router.push("/register")}
             className="mt-2 px-8 py-3 rounded-lg text-sm font-semibold text-white transition-all duration-200 hover:opacity-90 active:scale-95"
@@ -50,33 +68,18 @@ export default function LoginPage() {
           </button>
         </div>
 
-        {/* ── RIGHT — Login card ── */}
-        <div
-          className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8 flex flex-col gap-5"
-        >
-          {/* Card header */}
+        {/* RIGHT — Login card */}
+        <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8 flex flex-col gap-5">
           <div className="flex items-center gap-3 pb-4 border-b border-gray-100">
-            {/* Key icon badge */}
-            <div
-              className="w-10 h-10 rounded-full flex items-center justify-center shrink-0"
-              style={{ backgroundColor: "#EEF2FF" }}
-            >
+            <div className="w-10 h-10 rounded-full flex items-center justify-center shrink-0" style={{ backgroundColor: "#EEF2FF" }}>
               <KeyRound size={18} style={{ color: "#3B5BDB" }} />
             </div>
             <h2 className="text-xl font-semibold text-gray-800">Login</h2>
           </div>
 
-          {/* Form */}
           <form onSubmit={handleLogin} className="flex flex-col gap-5">
-
-            {/* Email field */}
             <div className="flex flex-col gap-1">
-              <label
-                htmlFor="email"
-                className="text-xs font-medium text-gray-500"
-              >
-                Email address
-              </label>
+              <label htmlFor="email" className="text-xs font-medium text-gray-500">Email address</label>
               <input
                 id="email"
                 type="email"
@@ -88,14 +91,8 @@ export default function LoginPage() {
               />
             </div>
 
-            {/* Password field */}
             <div className="flex flex-col gap-1">
-              <label
-                htmlFor="password"
-                className="text-xs font-medium text-gray-500"
-              >
-                Password
-              </label>
+              <label htmlFor="password" className="text-xs font-medium text-gray-500">Password</label>
               <div className="relative">
                 <input
                   id="password"
@@ -105,7 +102,6 @@ export default function LoginPage() {
                   required
                   className="w-full border border-gray-300 rounded-lg px-4 py-3 pr-11 text-sm text-gray-800 outline-none transition-all duration-200 focus:border-[#3B5BDB] focus:ring-2 focus:ring-[#3B5BDB]/20"
                 />
-                {/* Show/hide password toggle */}
                 <button
                   type="button"
                   onClick={() => setShowPassword((p) => !p)}
@@ -116,17 +112,16 @@ export default function LoginPage() {
               </div>
             </div>
 
-            {/* Continue button */}
             <button
               type="submit"
-              className="w-full py-3 rounded-lg text-sm font-semibold text-white transition-all duration-200 hover:opacity-90 active:scale-95 mt-1"
+              disabled={loginMutation.isPending}
+              className="w-full py-3 rounded-lg text-sm font-semibold text-white transition-all duration-200 hover:opacity-90 active:scale-95 mt-1 disabled:opacity-60 disabled:cursor-not-allowed"
               style={{ backgroundColor: "#3B5BDB" }}
             >
-              Continue
+              {loginMutation.isPending ? "Logging in..." : "Continue"}
             </button>
           </form>
 
-          {/* Forgot password */}
           <div className="text-center">
             <button
               type="button"
