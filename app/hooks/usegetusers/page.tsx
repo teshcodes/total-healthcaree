@@ -1,4 +1,5 @@
 // ./hooks/usegetusers/page.tsx
+"use client";
 
 import { useQuery } from "@tanstack/react-query";
 import { getUsers } from "../../service/total-healthcare/page";
