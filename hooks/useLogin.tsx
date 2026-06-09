@@ -2,7 +2,7 @@
 "use client";
 
 import { useMutation } from "@tanstack/react-query";
-import { loginUser } from "../app/service/total-healthcare/page";
+import { loginUser } from "../service/total-healthcare/page";
 import { toast } from "sonner";
 import { AxiosError } from "axios";
 

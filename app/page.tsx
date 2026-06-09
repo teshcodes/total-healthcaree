@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Eye, EyeOff, KeyRound } from "lucide-react";
 import { useMutation } from "@tanstack/react-query";
-import { loginUser } from "./service/total-healthcare/page";
+import { loginUser } from "../service/total-healthcare";
 import { toast } from "sonner";
 import { AxiosError } from "axios";
 

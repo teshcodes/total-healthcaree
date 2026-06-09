@@ -14,13 +14,13 @@ export default function ConfirmPage() {
     };
 
   const handleResend = () => {
-    // resend confirmation code logic 
+    // resend confirmation code
     alert("Confirmation code resent!");
   };
 
   return (
     <div
-      className="min-h-screen w-full flex items-center justify-center px-4"
+      className="h-screen overflow-y-auto w-full flex items-center justify-center px-4 py-6"
       style={{ backgroundColor: "#EAECF1" }}
     >
       <div className="w-full max-w-5xl flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-8">

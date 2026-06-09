@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Eye, EyeOff, KeyRound } from "lucide-react";
 import { useMutation } from "@tanstack/react-query";
-import { signupUser } from "../service/total-healthcare/page";
+import { signupUser } from "../../service/total-healthcare";
 import { toast } from "sonner";
 import { AxiosError } from "axios";
 
@@ -46,7 +46,7 @@ export default function RegisterPage() {
 
   return (
     <div
-      className="min-h-screen w-full flex items-center justify-center px-4"
+      className="h-screen overflow-y-auto w-full flex items-center justify-center px-4 py-6"
       style={{ backgroundColor: "#EAECF1" }}
     >
       <div className="w-full max-w-5xl flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-8">

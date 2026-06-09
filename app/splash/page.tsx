@@ -17,7 +17,7 @@ export default function SplashPage() {
   }, [router]);
 
   return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-white">
+    <div className="h-screen overflow-y-auto w-full flex items-center justify-center bg-white">
       <div className="flex items-center gap-4">
 
         {/* App icon */}
