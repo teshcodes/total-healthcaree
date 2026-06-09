@@ -10,7 +10,7 @@ export default function SplashPage() {
   useEffect(() => {
     // auto-redirect to dashboard after 5 seconds
     const timer = setTimeout(() => {
-      router.push("/confirm");
+      router.push("/confirm-page");
     }, 5000);
 
     return () => clearTimeout(timer);

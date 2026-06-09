@@ -30,7 +30,7 @@ export default function LoginPage() {
     onSuccess: (data) => {
       toast.success("Login successful!");
       localStorage.setItem("token", data.token);
-      router.push("/confirm");
+      router.push("/confirm-page");
     },
     onError: (error: Error) => {
       toast.error(error.message);
@@ -107,7 +107,7 @@ export default function LoginPage() {
                   onClick={() => setShowPassword((p) => !p)}
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
                 >
-                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                  {showPassword ? <Eye size={18} /> : <EyeOff size={18} />}
                 </button>
               </div>
             </div>

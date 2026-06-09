@@ -16,7 +16,7 @@ export default function RegisterPage() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  // ── Signup mutation wired in ──
+  
   const signupMutation = useMutation({
     mutationFn: async () => {
       return await signupUser({
@@ -28,7 +28,7 @@ export default function RegisterPage() {
     },
     onSuccess: () => {
       toast.success("Account created! Please check your email for the confirmation code.");
-      router.push("/confirm");
+      router.push("/confirm-password");
     },
     onError: (error: unknown) => {
       if (error instanceof AxiosError) {

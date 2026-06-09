@@ -37,9 +37,9 @@ export const signupUser = async (userData: {
     password: string;
 }) => {
     const payload = {
-        name: userData.practiceName,
+        practiceName: userData.practiceName,
         email: userData.emailAdress,
-        phone: userData.phoneNumber,
+        phoneNumber: userData.phoneNumber,
         password: userData.password
     };
     const { data } = await axiosInstance.post("/auth/register", payload);
@@ -51,9 +51,13 @@ export const loginUser = async (credentials: {
     emailAdress: string;
     password: string;
 }) => {
-    const { data } = await axiosInstance.post("/auth/login", credentials);
+    const payload = {
+        email: credentials.emailAdress,
+        password: credentials.password
+    };
+    const { data } = await axiosInstance.post("/auth/login", payload);
     return data;
-};
+}
 
 // Forgot password function
 export const forgotPassword = async (credentials: {
