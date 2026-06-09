@@ -2,7 +2,7 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import { getUsers } from "../../service/total-healthcare/page";
+import { getUsers } from "../app/service/total-healthcare/page";
 import { toast } from "sonner";
 import { AxiosError } from "axios";
 import { useEffect } from "react";

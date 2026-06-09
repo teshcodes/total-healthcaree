@@ -2,7 +2,7 @@
 "use client";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteUserProfile } from "../../service/total-healthcare/page";
+import { deleteUserProfile } from "../app/service/total-healthcare/page";
 import { toast } from "sonner";
 
 type UseDeleteUserProfileProps = {

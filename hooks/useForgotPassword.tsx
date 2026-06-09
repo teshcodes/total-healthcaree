@@ -1,7 +1,7 @@
 "use client";
 
 import { useMutation } from "@tanstack/react-query";
-import { forgotPassword } from "../../service/total-healthcare/page";
+import { forgotPassword } from "../app/service/total-healthcare/page";
 import { toast } from "sonner";
 import { AxiosError } from "axios";
 

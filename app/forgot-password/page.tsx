@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { KeyRound } from "lucide-react";
-import { useForgotPassword } from "../hooks/useforgotpassword/page";
+import { useForgotPassword } from "../../hooks/useForgotPassword";
 
 export default function ForgotPasswordPage() {
   const router = useRouter();
